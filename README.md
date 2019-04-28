@@ -1,6 +1,7 @@
 # Installation
 - Install node.js and run 
 `npm install express --save`
+- Locate `localhost:8000/main` for main page.
 
 # API
 - /update
