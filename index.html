@@ -4,34 +4,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
     <script>
-      var flag = -1;
       $(document).ready(function() {
+        var setFade = function(x, y, z) {
+          $(".first").clearQueue();
+          $(".second").clearQueue();
+          $(".result").clearQueue();
+          $(".first").fadeTo("fast", x);
+          $(".second").fadeTo("fast", y);
+          $(".result").fadeTo("fast", z);
+        }
         setInterval(function() {
-          $.get("http://localhost:8000/info",function(data,success) {
-            $("#first").text("Degree = "+data.first.degree + " Distance = "+data.first.distance);
-            $("#second").text("Degree = "+data.second.degree + " Distance = "+data.second.distance);
+          $.get("/info",function(data,success) {
+            $("#first").text("Degree = "+data.first.degree.toFixed(2) + " Distance = "+data.first.distance.toFixed(2));
+            $("#second").text("Degree = "+data.second.degree.toFixed(2) + " Distance = "+data.second.distance.toFixed(2));
             $("#result").text(data.result.toFixed(2));
             if(data.state == 0) {
-              if(flag != 0) {
-                flag = 0;
-                $(".first").fadeTo("fast",1);
-                $(".second").fadeTo("fast",0.3);
-                $(".result").fadeTo("fast",0.3);
-              }
+                setFade(1, 0.1, 0.1);
             } else if(data.state == 1) {
-              if(flag != 1) {
-                flag = 1;
-                $(".first").fadeTo("fast",0.3);
-                $(".second").fadeTo("fast",1);
-                $(".result").fadeTo("fast",0.3);
-              }
+                setFade(0.1, 1, 0.1);
             } else if(data.state == 2) {
-              if(flag != 2) {
-                flag = 2;
-                $(".first").fadeTo("fast",1);
-                $(".second").fadeTo("fast",1);
-                $(".result").fadeTo("fast",1);
-              }
+                setFade(1,1,1);
             }
           });
         },100);
@@ -45,6 +37,6 @@
   <h3 class="second" align="center">Second measurement</h3>
   <p class="second" id="second" align="center"></p><br>
   <h3 class="result" align="center">Result</h3>
-  <p class="result" id="result" align="center" style="font-size:120px"></p>
+  <p class="result" id="result" align="center" style="font-size:96px"></p>
   </body>
 </html>
