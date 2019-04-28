@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script>
+      var flag = -1;
+      $(document).ready(function() {
+        setInterval(function() {
+          $.get("http://localhost:8000/info",function(data,success) {
+            $("#first").text("Degree = "+data.first.degree + " Distance = "+data.first.distance);
+            $("#second").text("Degree = "+data.second.degree + " Distance = "+data.second.distance);
+            $("#result").text(data.result.toFixed(2));
+            if(data.state == 0) {
+              if(flag != 0) {
+                flag = 0;
+                $(".first").fadeTo("fast",1);
+                $(".second").fadeTo("fast",0.3);
+                $(".result").fadeTo("fast",0.3);
+              }
+            } else if(data.state == 1) {
+              if(flag != 1) {
+                flag = 1;
+                $(".first").fadeTo("fast",0.3);
+                $(".second").fadeTo("fast",1);
+                $(".result").fadeTo("fast",0.3);
+              }
+            } else if(data.state == 2) {
+              if(flag != 2) {
+                flag = 2;
+                $(".first").fadeTo("fast",1);
+                $(".second").fadeTo("fast",1);
+                $(".result").fadeTo("fast",1);
+              }
+            }
+          });
+        },100);
+      });
+    </script>
+  </head>
+  <body>
+  <h1 align="center">Ultrasonic distance measurement</h1>
+  <h3 class="first" align="center">First measurement</h2>
+  <p class="first" id="first" align="center"></p>
+  <h3 class="second" align="center">Second measurement</h3>
+  <p class="second" id="second" align="center"></p><br>
+  <h3 class="result" align="center">Result</h3>
+  <p class="result" id="result" align="center" style="font-size:120px"></p>
+  </body>
+</html>
