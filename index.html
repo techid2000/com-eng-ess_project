@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style type="text/css">
+      html {
+        background-color: #F1F2F4;
+      }
+      body {
+        position: absolute;
+        text-align: center;
+        color: #33515A;
+        font-family: 'Segoe UI';
+        font-size: 20px
+      }
+      h1 {
+        font-family: 'Times New Roman';
+        font-size: 60px;
+      }
+      .box {
+        border: 5px dashed #A7B8BF;
+        margin: 50px;
+        padding: 0px 50px 50px 50px;
+        float: left;
+        width: 500px;
+        background: rgb(167, 184, 191, 0.3)
+      }
+      .value {
+        color: #2A2724;
+        font-size: 28px;
+      }
+      .result {
+        font-size: 40px;
+        color: #2A2724;
+      }
+      #result {
+        font-size: 60px;
+      }
+
+    </style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
     <script>
@@ -15,8 +52,10 @@
         }
         setInterval(function() {
           $.get("/info",function(data,success) {
-            $("#first").text("Degree = "+data.first.degree.toFixed(2) + " Distance = "+data.first.distance.toFixed(2));
-            $("#second").text("Degree = "+data.second.degree.toFixed(2) + " Distance = "+data.second.distance.toFixed(2));
+            $("#first-degree-value").text(data.first.degree.toFixed(2));
+            $("#first-distance-value").text(data.first.distance.toFixed(2));
+            $("#second-degree-value").text(data.second.degree.toFixed(2));
+            $("#second-distance-value").text(data.second.distance.toFixed(2));
             $("#result").text(data.result.toFixed(2));
             if(data.state == 0) {
                 setFade(1, 0.1, 0.1);
@@ -31,12 +70,30 @@
     </script>
   </head>
   <body>
-  <h1 align="center">Ultrasonic distance measurement</h1>
-  <h3 class="first" align="center">First measurement</h2>
-  <p class="first" id="first" align="center"></p>
-  <h3 class="second" align="center">Second measurement</h3>
-  <p class="second" id="second" align="center"></p><br>
-  <h3 class="result" align="center">Result</h3>
-  <p class="result" id="result" align="center" style="font-size:96px"></p>
+  <h1>Ultrasonic Height Measurement</h1>
+  <div class="boxset">
+    <figure class="box" id="first-box">
+      <h2 class="first">First measurement</h2>
+      <div class="first" id="first">
+        <span id="first-text-degree">Degree &ensp; = &ensp; </span>
+        <span class="value" id="first-degree-value"></span><span class="value">&deg;</span><br><br>
+        <span id="first-text-distance">Distance &ensp; = &ensp; </span>
+        <span class="value" id="first-distance-value"></span>&ensp;cm
+      </div>
+    </figure>
+    <figure class="box" id="second-box">
+      <h2 class="second">Second measurement</h2>
+      <div class="second" id="second">
+          <span id="second-text-degree">Degree &ensp; =  &ensp; </span>
+          <span class="value" id="second-degree-value"></span><span class="value">&deg;</span><br><br>
+          <span id="second-text-distance">Distance &ensp; = &ensp; </span>
+          <span class="value" id="second-distance-value"></span>&ensp;cm
+      </div>
+    </figure>
+  </div>
+  <h3 class="result">Result</h3>
+  <div>
+      <span class="result" id="result"></span>&ensp;cm
+  </div>
   </body>
 </html>

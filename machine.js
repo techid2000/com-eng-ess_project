@@ -19,9 +19,9 @@ exports.assign = function() {
     data.state = 1;
   } else if(data.state == 1) {
     var a = data.first.degree;
-    var x = data.first.distance;
+    var x = data.first.distance + 3.4;
     var b = data.second.degree;
-    var y = data.second.distance;
+    var y = data.second.distance + 3.4;
     var cos = Math.cos( Math.abs(a - b) * Math.PI/180.0);
     var r = Math.sqrt(x*x + y*y - 2*x*y*cos);
     data.result = r;
